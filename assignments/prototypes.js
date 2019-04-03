@@ -192,3 +192,88 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+function Hero(heroAttrs) {
+    Humanoid.call(this, heroAttrs);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.heroAttack = function(enemy) {
+    let attackDam = Math.floor(Math.random() * 100);
+    enemy.healthPoints = enemy.healthPoints - attackDam;
+    if (enemy.healthPoints <= 0) {
+        console.log(`${this.name} attacked ${enemy.name} for ${attackDam} points of damage.`);
+        console.log(`${enemy.name} took ${attackDam} points of damage and was removed from the game!`);
+    } else {
+        console.log(`${this.name} attacked ${enemy.name} for ${attackDam} points of damage.`);
+        console.log(`${enemy.name} took ${attackDam} points of damage!`);
+    }
+}
+
+function Villain(villianAttrs) {
+    Humanoid.call(this, villianAttrs);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.villainAttack = function(enemy) {
+    let attackDam = Math.floor(Math.random() * 100);
+    enemy.healthPoints = enemy.healthPoints - attackDam;
+    if (enemy.healthPoints <= 0) {
+        console.log(`${this.name} attacked ${enemy.name} for ${attackDam} points of damage.`);
+        console.log(`${enemy.name} took ${attackDam} points of damage and was removed from the game!`);
+    } else {
+        console.log(`${this.name} attacked ${enemy.name} for ${attackDam} points of damage.`);
+        console.log(`${enemy.name} took ${attackDam} points of damage!`);
+    }
+}
+
+
+
+let hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+        length: 5,
+        width: 5,
+        height: 5,
+    },
+    healthPoints: 500,
+    name: 'Captain Marvel',
+    team: 'Avengers',
+    weapons: ['Binary Powers'],
+    language: 'English',
+});
+
+let villain = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+        length: 5,
+        width: 5,
+        height: 5,
+    },
+    healthPoints: 500,
+    name: 'Thanos',
+    team: 'His Own',
+    weapons: ['Infinity Gauntlet'],
+    language: 'English',
+});
+
+function fight(player1, player2) {
+    while (player1.healthPoints > 0 || player2.healthPoints > 0) {
+        if (player1.healthPoints > 0) {
+            hero.heroAttack(player2);
+        } else {
+            break;
+        }
+        if (player2.healthPoints > 0) {
+            villain.villainAttack(player1);
+        } else {
+            break;
+        }
+        console.log(`${player1.name} has ${player1.healthPoints} left!`);
+        console.log(`${player2.name} has ${player2.healthPoints} left!`);
+    }
+}
+
+fight(hero, villain);
