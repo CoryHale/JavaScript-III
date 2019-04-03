@@ -271,8 +271,8 @@ function fight(player1, player2) {
         } else {
             break;
         }
-        console.log(`${player1.name} has ${player1.healthPoints} left!`);
-        console.log(`${player2.name} has ${player2.healthPoints} left!`);
+        console.log(`${player1.name} has ${player1.healthPoints} health points left!`);
+        console.log(`${player2.name} has ${player2.healthPoints} health points left!`);
     }
 }
 
